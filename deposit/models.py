@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from master.models import InstitutionDetail
-from .constants import DEPOSIT_METHOD
+from .constants import DEPOSIT_METHOD, PURPOSE
 # Create your models here.
 
 class TimeStamp(models.Model):
@@ -26,14 +26,19 @@ class PersonDetail(TimeStamp):
 
 class Deposits(TimeStamp):
     deposit_date = models.DateTimeField(auto_now=True)
+    account_no = models.CharField(max_length=300, default=0)
     amount = models.PositiveIntegerField(default=0)
     by = models.ForeignKey(PersonDetail, on_delete=models.CASCADE)
     deposit_method = models.CharField(max_length=150, choices=DEPOSIT_METHOD)
     institution = models.ForeignKey(InstitutionDetail, on_delete=models.CASCADE)
-    is_business = models.BooleanField(default=False)
-    is_personal = models.BooleanField(default=False)
+    branch = models.CharField(max_length=200, default='')
+    purpose = models.CharField(max_length=200, choices=PURPOSE, default='1')
+    business_name = models.CharField(max_length=200, null=True, blank=True)
+    source_of_deposit = models.CharField(max_length=300, blank=True, null=True)
     source = models.CharField(max_length=250, null=True, blank=True) 
 
     def __str__(self):
         return str(self.amount)
+
+        
     
