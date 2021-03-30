@@ -1,0 +1,94 @@
+{% extends 'base/base.html' %}
+{% block title %}New Person{% endblock %}
+{% block style %}
+<style>
+    #wrapper {
+        background-color: #efefef;
+        padding: 20px;
+    }
+</style>
+{% endblock %}
+{% block content %} 
+<div class="container mt-4">
+    <h3>Add Person <sup style="font-size:14px">(*Required Fields)</sup></h3>
+</div>
+
+<form method="post" id="deposit-form">{% csrf_token %}
+    <div class="container">
+        <div class="wrapper" id="wrapper">
+            <div class="row">
+                <div class="col-6">
+                    <h4><label style="font-size:18px; margin-top:30px;">Name<sup>*</sup></label></h4>
+                    {{form.name}}
+                    <span id="name_error"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <h4><label style="font-size:18px; margin-top:30px;">Contact<sup></sup></label></h4>
+                    {{form.contact}}
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <h4><label style="font-size:18px; margin-top:30px;">Address<sup></sup></label></h4>
+                    {{form.address}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <button type="button" class="btn btn-danger mt-4 mb-4" id="button">Save</button>
+    </div>
+</form>
+{% block script %}
+
+<script>
+   
+$('#id_name').on('keyup', function(){
+
+    var name = $('#id_name').val();
+    var contact = $('#id_contact').val()
+    var address = $('#id_address').val()
+
+    $.ajax({
+        url:'{% url "deposit:deposit-ajax" %}',
+        dataType: 'json',
+        data:{
+            'name':name,
+            'contact':contact,
+            'address':address,
+        },
+        success:function(data){
+            name = data.name
+            var user_input_name = $('#id_name').val();
+            console.log(user_input_name)
+            if(user_input_name.length<1){
+                $('#name_error').html('Field Is Blank')
+                $('#name_error').css('color', 'red')
+                $('#button').attr('disabled', true)
+            }
+            else if (name==user_input_name){
+                $('#name_error').html('Person By This Name Already Exists')
+                $('#name_error').css('color', 'grey')
+                $('#button').attr('disabled', true)
+            }
+            // else if(name!=user_input_name || user_input_name==null){
+            //     $('#name_error').html('')
+            //     $('#name_error').css('color', 'green')
+            //     $('#button').attr('disabled', false)
+            // }
+            else{
+                $('#button').attr('disabled', false)
+                $('#name_error').html('')
+            }
+        }
+    })
+
+})
+</script>
+
+{% endblock %}
+{% endblock %}

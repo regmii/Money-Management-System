@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from master.models import InstitutionDetail
-from deposit.constants import DEPOSIT_METHOD, PURPOSE
+from deposit.constants import DEPOSIT_METHOD, PURPOSE, WITHDRAW_METHOD
 from deposit.models import PersonDetail
 # Create your models here.
 
@@ -20,10 +20,10 @@ class Withdraw(TimeStamp):
     withdraw_date = models.DateTimeField(auto_now=True)
     amount = models.PositiveIntegerField(default=0)
     by = models.ForeignKey(PersonDetail, on_delete=models.CASCADE)
-    withdraw_method = models.CharField(max_length=150, choices=DEPOSIT_METHOD)
+    withdraw_method = models.CharField(max_length=150, choices=WITHDRAW_METHOD)
     institution = models.ForeignKey(InstitutionDetail, on_delete=models.CASCADE)
     purpose = models.CharField(max_length=200, choices=PURPOSE, default='1')
-    source = models.CharField(max_length=250, null=True, blank=True) 
+    what_purpose = models.CharField(max_length=250, default="1")
 
     def __str__(self):
         return str(self.amount)

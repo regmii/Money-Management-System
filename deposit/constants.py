@@ -7,6 +7,12 @@ DEPOSIT_METHOD = (
 )
 
 PURPOSE = (
+    ('Personal', 'Personal'),
     ('Business', 'Business'),
-    ('Personal', 'Personal')
+)
+
+WITHDRAW_METHOD = (
+    ('ATM', 'ATM'),
+    ('Cheque', 'Cheque'),
+    ('Online', 'Online')
 )

@@ -1,0 +1,146 @@
+{% extends 'base/base.html' %}
+{% block title %} New Deposit {% endblock %}
+{% block style %}
+
+<style>
+    #wrapper {
+        background-color: #efefef;
+        padding: 20px;
+    }
+</style>
+{% endblock %}
+{% block content %}
+
+<div class="container mt-4">
+    <h3>New Deposit <sup style="font-size:14px">(*Required Fields)</sup></h3>
+</div>
+
+<form method="POST" id="deposit-form">{% csrf_token %}
+    <div class="container">
+        <div class="wrapper" id="wrapper">
+            <div class="row">
+                <div class="col">
+                    <h4><label style="font-size:18px; margin-top:30px;">Account Number<sup>*</sup></label></h4>
+                    {{form.account_no}}
+                </div>
+                <div class="col">
+                    <h4><label style="font-size:18px; margin-top:30px;">Amount<sup>*</sup></label></h4>
+                    {{form.amount}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <h4><label style="font-size:18px; margin-top:30px;">Deposit By<sup>*</sup></label></h4>
+                    {{form.by}}
+                    
+                    <a href="{% url 'deposit:new-person' %}"><button type="button" class="btn btn-primary">Add New</button></a>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h4><label style="font-size:18px; margin-top:30px;">Deposit To<sup>*</sup></label></h4>
+                    {{form.institution}}
+                </div>
+                <div class="col">
+                    <h4><label style="font-size:18px; margin-top:30px;">Branch<sup>*</sup></label></h4>
+                    {{form.branch}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <h4><label style="font-size:18px; margin-top:30px;">Deposit Purpose<sup>*</sup></label></h4>
+                    {{form.purpose}}
+                </div>
+                <div class="col" style="display:none;" id="business_name_div">
+                    <h4><label style="font-size:18px; margin-top:30px;">Business/Person Name<sup>*</sup></label></h4>
+                    {{form.business_name}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <h4><label style="font-size:18px; margin-top:30px;">Deposit Method<sup>*</sup></label></h4>
+                    {{form.deposit_method}}
+                </div>
+                <div class="col" id="cheque-details" style="display:none;">
+                    <div class="row">
+                        <div class="col">
+                            <h4><label style="font-size:18px; margin-top:30px;">Cheque Number<sup>*</sup></label></h4>
+                            {{form.cheque_no}}
+                        </div>
+                        <div class="col">
+                            <h4><label style="font-size:18px; margin-top:30px;">Upload Check Image<sup>*</sup></label>
+                            </h4>
+                            {{form.cheque_image}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="cheque-details">
+
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <h4><label style="font-size:18px; margin-top:30px;">Source Of Deposit<sup></sup></label></h4>
+                    {{form.source}}
+                </div>
+                <div class="col">
+                    <h4><label style="font-size:18px; margin-top:30px;">Upload Deposit Slip<sup>*</sup></label></h4>
+                    {{form.deposit_slip_image}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <button type="submit" class="btn btn-danger mt-4 mb-4">Save</button>
+    </div>
+</form>
+{% block script %}
+
+<script>
+    
+    var purpose = document.getElementById('id_purpose')
+    var business_name = document.getElementById('business_name');
+
+    var deposit_method = document.getElementById('id_deposit_method');
+    var cheque_number_div = document.getElementById('cheque-details')
+
+    purpose.addEventListener('click', function () {
+        var business_name = document.getElementById('id_purpose').value
+        if (business_name == 'Business') {
+            business_name_div.style.display = 'grid'
+            id_business_name.setAttribute("required", "")
+        }
+        else {
+            business_name_div.style.display = 'none'
+            id_business_name.removeAttribute("required", "")
+        }
+    })
+
+    deposit_method.addEventListener('click', function () {
+        var method = deposit_method.value
+        if (method == "Cheque") {
+            var details_div = document.getElementById('cheque-details')
+            details_div.style.display = 'grid'
+            document.getElementById('id_cheque_no').setAttribute("required", "")
+            document.getElementById('id_cheque_image').setAttribute("required", "")
+        }
+        else {
+            var details_div = document.getElementById('cheque-details')
+            details_div.style.display = 'none'
+            document.getElementById('id_cheque_no').removeAttribute("required", "")
+            document.getElementById('id_cheque_image').removeAttribute("required", "")
+        }
+    })
+
+
+
+</script>
+
+
+
+
+{% endblock %}
+{% endblock %}
