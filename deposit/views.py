@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.views import View
 from .models import *
 from .forms import *
+from master.models import *
 # Create your views here.
 
 class DepositListView(View):
@@ -59,4 +60,26 @@ def person_ajax(request):
     except:
         return JsonResponse({'name':None})
         
+
+class NewInsitutionCreate(View):
+    def get(self, request):
+        form = InstitutionDetailForm
+        type = InstitutionType.objects.all()
+        detail = InstitutionDetail.objects.all()
+        context = {'type': type, 'detail': detail, 'form':form}
+        return render(request, 'deposit/new_institution.html', context=context)
+
+
+class InstitutionTypeCreate(View):
+    def  get(self, request):
+        form = InstitutionTypeForm
+        context = {
+            'form':form
+        }
+        return render(request, 'deposit/institution-type.html', context=context)
     
+    def post(self, request):
+        form = InstitutionTypeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('deposit:new-institution')

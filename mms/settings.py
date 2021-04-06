@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'master',
     'deposit',
-    'withdraw'
+    'withdraw',
+    'expenses',
 ]
 
 MIDDLEWARE = [

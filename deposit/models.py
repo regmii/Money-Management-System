@@ -38,7 +38,7 @@ class Deposits(TimeStamp):
     source = models.CharField(max_length=250, null=True, blank=True) 
     cheque_no = models.CharField(max_length=200, blank=True, null=True)
     cheque_image = models.ImageField(upload_to='images/cheque_images/', null=True, blank=True)
-    deposit_slip_image = models.ImageField(upload_to='images/deposit_slip')
+    deposit_slip_image = models.ImageField(upload_to='images/deposit_slip', null=True, blank=True)
 
     def __str__(self):
         return str(self.amount)

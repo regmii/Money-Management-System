@@ -1,5 +1,6 @@
 from django import forms
 from .models import *
+from master.models import *
 
 class DepositCreateForm(forms.ModelForm):
     class Meta:
@@ -78,4 +79,44 @@ class PersonCreateForm(forms.ModelForm):
                 'class':'form-control',
             }),
 
+        }
+
+
+class InstitutionDetailForm(forms.ModelForm):
+    class Meta:
+        model = InstitutionDetail
+        fields = ['institution_type', 'name', 'balance', 'address', 'contact']
+
+        widgets = {
+            'institution_type':forms.Select(attrs={
+                'class':'form-control',
+            }),
+            'name':forms.TextInput(attrs={
+                'class':'form-control',
+                'placeholder':'Name of Institution',
+            }),
+            'balance':forms.NumberInput(attrs={
+                'class':'form-control',
+                'placeholder':'Name of Institution',
+            }),
+            'address':forms.TextInput(attrs={
+                'class':'form-control',
+            }),
+            'contact':forms.TextInput(attrs={
+                'class':'form-control',
+            }),
+        }
+
+class InstitutionTypeForm(forms.ModelForm):
+    class Meta:
+        model = InstitutionType
+        fields = ['institution_type', 'code']
+
+        widgets = {
+            'institution_type':forms.TextInput(attrs={
+                'class':'form-control',
+            }),
+            'code':forms.TextInput(attrs={
+                'class':'form-control',
+            }),
         }

@@ -1,0 +1,31 @@
+{% extends 'base/base.html' %}
+{% block title %} New Institution {% endblock %}
+{% block style %}
+{% endblock %}
+{% block content %}
+
+<form method="POST" id="deposit-form">{% csrf_token %}
+    <div class="container">
+        <h1></h1>
+        <div class="wrapper" id="wrapper">
+            <div class="row">
+                <div class="col">
+                    <h4><label style="font-size:18px; margin-top:30px;">Institution Type<sup>*</sup></label></h4>
+                    {{form.institution_type}}
+                </div>
+                <div class="col">
+                    <h4><label style="font-size:18px; margin-top:30px;">Code<sup>*</sup></label></h4>
+                    {{form.code}}
+                </div>
+            </div>  
+        </div>
+    </div>
+
+
+    <div class="container">
+        <button type="submit" class="btn btn-danger mt-4 mb-4">Save</button>
+    </div>
+</form>
+{% block script %}
+{% endblock %}
+{% endblock %}

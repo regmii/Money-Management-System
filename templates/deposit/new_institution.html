@@ -1,0 +1,57 @@
+{% extends 'base/base.html' %}
+{% block title %} New Institution {% endblock %}
+{% block style %}
+{% endblock %}
+{% block content %}
+
+<form method="POST" id="deposit-form">{% csrf_token %}
+    <div class="container">
+        <h1></h1>
+        <div class="wrapper" id="wrapper">
+            <div class="row">
+                <div class="col">
+                    <h4><label style="font-size:18px; margin-top:30px;">Institution Type<sup>*</sup></label></h4>
+                    {{form.institution_type}}
+                    <a href="{% url 'deposit:new-institution-type' %}"><button type="button" class="btn btn-primary">Add New</button></a>
+                </div>
+                <div class="col">
+                    <h4><label style="font-size:18px; margin-top:30px;">Name<sup>*</sup></label></h4>
+                    {{form.name}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <h4><label style="font-size:18px; margin-top:30px;">Initial Balance<sup>*</sup></label></h4>
+                    {{form.balance}}
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h4><label style="font-size:18px; margin-top:30px;">Address<sup>*</sup></label></h4>
+                    {{form.address}}
+                </div>
+                <div class="col">
+                    <h4><label style="font-size:18px; margin-top:30px;">Contact<sup>*</sup></label></h4>
+                    {{form.contact}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <h4><label style="font-size:18px; margin-top:30px;">Contact<sup>*</sup></label></h4>
+                    {{form.contact}}
+                </div>
+            
+            
+        </div>
+    </div>
+
+
+    <div class="container">
+        <button type="submit" class="btn btn-danger mt-4 mb-4">Save</button>
+    </div>
+</form>
+
+{% block script %}
+{% endblock %}
+{% endblock %}
